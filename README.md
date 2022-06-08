@@ -58,6 +58,7 @@
             - Vendor specific solutions
             - Scalability problem
             - Sharing data between different organizations  
+            - Public accessibility(多数人毛都不懂)
     - Grid Computing
         - From computer-computer focus to organisation-organisation focus
         - Can be thought of as a distributed system with non-interactive workloads.
