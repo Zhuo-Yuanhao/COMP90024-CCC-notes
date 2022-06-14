@@ -138,8 +138,9 @@
     - method:
         1. Vertical Computational Scaling
             - Have faster processors
-            - disabv: processor speed is limited  
-              Moore's law is no longer working, CPU stop goes faster as we expected
+            - disabv: 1. processor speed is limited  
+              2. Moore's law is no longer working, CPU stop goes faster as we expected
+            - adv: 提升幅度往往是可计算的，如2GHz->2.5GHz就是提升了25%
         2. Horizontal Computational Scaling
             - Have more processors
             - adv: 
@@ -161,60 +162,13 @@
                             - Delayed and lost in message passing
                 - 2) cost increase not so much
             - disadv: 
-                - 1) **add more** limition (see week3 - Amdahl's law)
+                - 1) **add more** limition (see week3 - Amdahl's law，实际提升不一定可计算)
                 - 2) harder to design, develop, test
 2. network scaling
     - volume of data on network grows each year
 3. massive amount of data generated among a time requires compute infrasture
     - e.g. mapping the sky with data from tele-scope
-5. Cloud Computing in Different Domains
-    - **High energy physics**
-    - Astrophysics
-    - **Macro-micro simulations**
-    - Electronics
-    - Arts and humanities
-    - Life sciences
-        - Extensive Research Community
-            - Parkville Precinct for example
-        - Many people care about them
-            - Health, Food, Environment – truly interdisciplinary!
-        - Interacts with virtually every discipline
-            - Physics, Chemistry, Maths/Stats, Nano-engineering, …
-        - Thousands of databases relevant to bioinformatics (and growing!)
-            - Heterogeneity, Interdependence, Complexity, Change, …
-        - Some of the Big Questions/Challenges
-            - How does a cell work?
-            - How does a brain work?
-            - How does an organism develop?
-            - Why do people who eat less tend to live longer?
-    - Social sciences
-        - Aurin
-    - Clinical sciences
-    - Data sharing and ethics
-    - **e-Health**
-        - **Security**
-    - environmental
-    - social
-    - geographical
-    - Genome
-    - Hierarchical statistical system simulations 
-        - Very large device and circuit simulations
-            - 3D devices
-            - 10^5 circuit components
-        - Large statistical samples
-            - 1000 - 100000 3D simulations 
-            - 4D 1000 - 100000 circuit simulations
-        - Complex flow and storage of data
-            - Many files per simulation
-            - Metadata capture and data provenance
-        - Collaboration between 5 partners
-            - Multidisciplinary background
-            - Complex data exchange 
-        - Stringent security requirements
-            - Commercial IP
-            - Expensive software licenses
-
-5. challenges are shaping the technological landscape
+4. challenges are shaping the technological landscape
     - Challenges happen in multiple perspectives in research domains. - Big data - Big compute - Big distribution - Big collaboration - Big security
     - Tools, technologies and methodologies have been/can/are evolving to tackle these challenges
         - That there is a huge amount of work still to be done 
