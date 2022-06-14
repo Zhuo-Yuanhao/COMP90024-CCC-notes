@@ -231,14 +231,14 @@
         - <img src="./docs/1.png" width="50%" height="50%" />
         - Proportion of speed up depends on parts of program that cannot be parallelised
     1. Amdahl's law
-        - assumes a fixed problem size – sometimes can’t predict length of time required for jobs, 
+        - assumes a fixed problem size – sometimes can’t predict length of time required for jobs, 假设问题大小一定，增加CPU怎么影响时间
             - e.g. state space exploration or differential equations that don’t solve
         - <img src="./docs/2.jpg" width="60%" height="50%" />
         - That is, if 95% of the program can be parallelized, the theoretical maximum speedup using parallel computing would be 20 times, no matter how many processors are used.
         - If the non-parallelisable part takes 1H, then no matter how many cores are used, it won’t complete in < 1H
         - Amdahl’s Law greatly simplifies the real world
     2. Gustafson-Barsis's Law
-        - speedup is a linear formula dependent on the number of processes and the fraction of time to run sequential parts
+        - speedup is a linear formula dependent on the number of processes and the fraction of time to run sequential parts，假设时间一定，增加CPU怎么影响能处理的大小
         - <img src="./docs/3.jpg" width="60%" height="50%" />
         - Faster (more parallel) equipment available, larger problems can be solved in the same time.
     3. comparison
