@@ -300,10 +300,10 @@
                 - Disadv: Possibility of cache stalls (CPU not doing anything whilst waiting for caching)
                     - To address the issue that CPU not doing anything whilst waiting for caching. Many chips have mixture cache L1 for single core, L2 for pair cores and L3 shared with all cores.
                 - Disadv: typical to have different cache speeds and cache sizes (higher hit rates but potentially higher latency). 
-        - Symmetric Multiprocessing (SMP)
+        - Symmetric Multiprocessing (SMP)，本质上是share memory
             - Two (or more) identical processors connected to a single, shared main memory, with full access to all I/O devices, controlled by a single OS instance that treats all processors equally. Each processor executes different programs and works on different data but with capability of sharing common resources (memory, I/O device, …). Processors can be connected in a variety of ways: buses, crossbar switches, meshes.  
                 - Disadv: More complex to program since need to program both for CPU and inter-processor communication (bus).
-        - Non-Uniform Memory Access (NUMA)
+        - Non-Uniform Memory Access (NUMA)，本质上是各自有各自的memory
             - provides speed-up by allowing a processor to access its own local memory faster than non-local memory.
                 - Disadv: Improved performance as long as data are localized to specific processes/processors. 
                 - Key is allocating memory/processors in NUMA friendly ways, 
