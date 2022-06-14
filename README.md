@@ -282,11 +282,13 @@
                 - HPC
 3. Approaches for Parallelism (Where and how)
     - Explicit vs Implicit Parallelisation
-        - Implicit Parallelism
+        - Implicit Parallelism（隐式并行）
             - **<u>Compiler</u>** is responsible for identifying parallelism and scheduling of calculations and the placement of data
+            - 说白了就是编译器来做并行
             - Disadv: Pretty hard to do
-        - Explicit Parallelisation
+        - Explicit Parallelisation（显式并行）
             - **<u>Programmer</u>** is responsible for most of the parallelization effort
+            - 由程序员写代码来实现的并行
     - Hardware
         - Hardware Parallelisation
             - **Cache**: much faster than reading/writing to main memory; instruction cache, data cache (multi-level) and translation lookaside buffer used for virtual-physical address translation (more later on Cloud and hypervisors). 
