@@ -49,7 +49,7 @@
             - soln: grid computing
             - Grid: only need access to it no matter it is data or super computer the process to move things
                 - problem: people have different ways to do it
-    - Distributed System
+    - Distributed System（90s）
         - <u>**Transparency**</u> and **<u>heterogeneity</u>** in computer-computer interactions
         - Finding resources -> Binding resources -> run time type checking -> invoking resources
         - Dealing with heterogeneous of system
@@ -59,7 +59,7 @@
             - Scalability problem
             - Sharing data between different organizations  
             - Public accessibility(多数人毛都不懂)
-    - Grid Computing
+    - Grid Computing（00s）
         - From computer-computer focus to organisation-organisation focus
         - Can be thought of as a distributed system with non-interactive workloads.
         - It is in contrast to the traditional notion of a supercomputer, which has many processors connected by a local high-speed computer bus instead of Ethernet.
@@ -72,15 +72,10 @@
             - Virtual organization support
             - Security
                 - Public key infrastructure
-    
+    - cloud(10s)
 5. Comparison between Grid/Cluster/Cloud Computing
-    ```
-    Clusters "tend" to be tightly coupled, e.g. a bunch of servers in a rack with high speed interconnects - we'll go into some details of this in week 3;  
-    Grid is/was more loosely coupled resources that provided single sign-on access to distributed resources that are often hosted by different organisations;  
-    Cloud = we'll get to that soon! ;o)
-    ```
     - Grid computing
-        - Refer to the top
+        - Grid is/was more loosely coupled resources that provided single sign-on access to distributed resources that are often hosted by different organisations
     - Cluster Computing
         - Clusters tend to be tightly coupled, e.g. a bunch of servers in a rack with high speed interconnects
         - Example
@@ -315,7 +310,7 @@
       - Compute parallelism
         - Processes
           - Used to realize tasks, structure activities
-        - Theads
+        - Theads（是process具体的小task）
           - Native threads
             - Fork, Spawn, Join
           - Green threads
@@ -331,7 +326,7 @@
           - Processes involved constantly waiting for each other
         - LiveLock
           - Process constantly change with regard to one another, but none are progressing
-    - Message Passing Interface (MPI)
+    - Message Passing Interface (MPI)，这玩意儿应该包含在software内
         - Widely adopted approach for message passing in parallel systems
         - Supports point-point, broadcast communications
         - Key MPI functions
@@ -346,7 +341,7 @@
         - Adv: 
             - Standardised, widely adopted, portable, performant
             - Parallelisation = users problem (user controll how to parallel)
-    - (HT) Condor
+    - (HT) Condor，只是一种方法，考到再说
         - A specialized workload management system for compute-intensive jobs developed at University of Wisconsin
         - Adv:
             - Offers job queueing mechanisms, scheduling policies, priority schemes, resource monitoring/management
@@ -368,9 +363,7 @@
             - ACID <-> BASE
         - Distributed File Systems 
             - e.g. Hadoop, Lustre, Ceph…
-4. Erroneous Assumptions of Distributed Systems (detail see slides)
-    - Challenges with Distribution 
-        - "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable" by Leslie Lamport
+4. Erroneous Assumptions of Distributed Systems (detail see slides)，下面的都是错的！！！！
     - The network is reliable
     - Latency is zero
     - Bandwidth is infinite - I can send any amount of data I wish between any nodes
@@ -388,9 +381,11 @@
         - People stealing the physical hardware
     - Topology doesn't change - Node x is always there
     - There is one administrator
+        - 事实上有数百个甚至更多
         - e.g.: Firewall changes, server reconfigurations, services, access control (students/staff/others…)
     - Transport cost is zero - I can send as much data as I like for free
     - The network is homogeneous
+        - 事实上有数十种不同的protocol
     - Time is ubiquitous - Clock is same across all computers in network
     - [-- Assumption ends --]
     - issues of heterogeneity of compute, data, security from lecture 1
@@ -413,29 +408,29 @@
     - Partitioning
         - Decomposition of computational activities and data into smaller tasks 
         - Numerous Pprallelisation paradigms:
-            - Master-Worker/task-farming
+            - Master-Worker/task-farming（整体结构层面的）
                 - Master decomposes the problem into small tasks
                 - distributes to workers and gathers partial results to produce the result
                 - Master-worker/task-farming is like divide and conquer with master doing both split and join operation
                 - <img src="./docs/4.jpg" width="20%" height="50%" />
-            - Divide and Conquer
+            - Divide and Conquer（整体结构层面的）
                 - 1) A problem is divided into two or more sub problems
                 - 2) each of these sub problems are solved independently
                 - 3) their results are combined
                 - 3 operations: split, compute, and join
                 - Master-worker/task-farming is like divide and conquer with master doing both split and join operation
                 - <img src="./docs/7.jpg" width="20%" height="50%" />
-            - Single Program Multiple Data (SPMD)
+            - Single Program Multiple Data (SPMD)（data层面的）
                 - Each process executes the same piece of code, but on different parts of the data
                 - Data is typically split among the available processors
                 - Data splitting and analysis can be done in many ways
                 - Commonly exploited model: MapReduce
                 - <img src="./docs/5.jpg" width="20%" height="50%" />
-            - Pipelining 
+            - Pipelining （data层面的）
                 - Suitable for applications involving multiple stages of execution
                 - typically operate on large number of data sets.
                 - <img src="./docs/6.jpg" width="30%" height="50%" />
-            - Speculation
+            - Speculation（整体结构层面的）
                 - Used when it is quite difficult to achieve parallelism through the previous paradigms
                 - use "look ahead" execution
                     - Like look ahead, if the data is predictable, we could use the predicted data to do the following action while waiting for data.
