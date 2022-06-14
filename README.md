@@ -289,6 +289,7 @@
         - Explicit Parallelisation（显式并行）
             - **<u>Programmer</u>** is responsible for most of the parallelization effort
             - 由程序员写代码来实现的并行
+            - A1就属于这种并行方式，例如slurm文件中的--ntask=2 --cpus-per-task=4等
     - Hardware
         - Hardware Parallelisation
             - **Cache**: much faster than reading/writing to main memory; instruction cache, data cache (multi-level) and translation lookaside buffer used for virtual-physical address translation (more later on Cloud and hypervisors). 
