@@ -474,16 +474,6 @@
     - Modularity of code and components
     - Readability of code and hardware documentation
     - Compatibility of code and hardware
-4. x-windows forwarding
-    - allows you to start up a remote application (on Spartan) but forward the display to your local machine.
-5. Why Module?
-    - have the advantages of being shared with many users on a system and easily allowing multiple installations of the same application but with different versions and compilation options. Sometimes users want the latest and greatest of a particular version of an application for the feature-set they offer. In other cases, such as someone who is participating in a research project, a consistent version of an application is desired. In both cases consistency and therefore reproducibility is attained.
-- Why performance and scale matters, and why it should matter to you.
-- An introduction to Spartan, University of Melbourne's HPC/cloud hybrid system
-- Logging in, help, and environment modules.
-- Job submission with Slurm workload manager; simple submissions, multicore, multi-node, job arrays, job dependencies, interactive jobs.
-- Parallel programming with shared memory and threads (OpenMP) and distributed memory and message passing (OpenMPI)
-- Tantalising hints about more advanced material on message passing routines.
 
 ### past exam
 - > [2015 Q4] B) Explain the role of a job scheduler on a high performance computing system like the University of Melbourne Edward cluster. What commands can be used to influence the behavior of the job scheduler in supporting parallel jobs running on single or multiple nodes (servers)? [3]
@@ -530,13 +520,15 @@
 ## Week5 - Cloud Computing & ~~Getting to Grips with the University of Melbourne Research Cloud~~
 Cloud computing is a model for enabling ubiquitous, convenient, on-demand network access to a shared pool of configurable computing resources (e.g., networks, servers, storage, applications, and services) <u>that can be rapidly provisioned and released with minimal management effort or service provider interaction</u> 可以通过最少的管理工作或服务提供者交互从而可以快速地配置和发布
 - <img src="./docs/8.jpg" width="70%" height="50%" />
+- 上图具体笔记见墨学week5课件
+- 注意别忽略最下面的五个character！
 1. Deployment Models
 
     || Private| Community| Public| Hybrid |
     |---|---|---|---|---|
     |pro|1. **Control**<br>2. **Consolidation of resources**<br>3. **Easier to secure** - easy to setup firewall<br>4. **More trust**||1. Utility computing<br>2. **Can focus on core business** - no need to care infrasture or be a devop<br>3. Cost-effective - use as much as you need<br>4. “Right-sizing”<br>5. Democratisation of computing<br>|1. **Cloud-bursting** - Use private cloud, but burst into (突然变成) public cloud when needed (What is hybrid cloud) |
     |con|1. Relevance to core business?<br>e.g. Netflix to Amazon<br>2. Staff/management overheads - need devop<br>3. Hardware obsolescence - need to refesh hardware<br>4. Over/under utilisation challenges - recycle resources<br>| | 1. **Security** - people can see your sensitive data<br>2. Loss of control<br>3. **Possible lock-in** - difficult to switch Azure if using AWS<br>4. Dependency of Cloud provider continued existence<br>| 1. How do you move data/resources when needed?<br>2. How to decide (in real time?) what data can go to public cloud?<br>3. Is the public cloud compliant with PCI-DSS (Payment Card Industry – Data Security Standard)?<br>|
-    |example| | | | Eucalyptus, VMWare vCloud Hybrid Service|
+    |example| | | AWS| Eucalyptus, VMWare vCloud Hybrid Service|
 
 2. Delivery Models
 - responsibilities:
@@ -544,7 +536,7 @@ Cloud computing is a model for enabling ubiquitous, convenient, on-demand networ
 -
     | | Iaas| Paas|Saas|
     |---|---|---|---|
-    | example| Amazon Web Services<br>Oracle Public Cloud<br>NeCTAR| Azure| Gmail|
+    | example| AWS<br>Oracle Public Cloud<br>NeCTAR| Azure| Gmail|
 
 ### past exam
 - > [2015 Q6] C) Describe some of the challenges in delivering hybrid Clouds? [2]
@@ -674,6 +666,7 @@ Cloud computing is a model for enabling ubiquitous, convenient, on-demand networ
     - However, when components are distributed such a direct approach typically cannot be used  (e.g. Assignment 2!)
     - Therefore, components (more properly, systems) have to interact in more loosely-coupled ways. 
     - **Services** are often used for this. Typically combinations and commonality of services can be used to form a **Service-oriented Architecture (SoA)**.
+    - 说白了，在distributed system上，把所有东西塞进同一个里面不现实，所以要把每个service分开塞进去
 3. SOA goal
 
     |||
@@ -724,6 +717,7 @@ Cloud computing is a model for enabling ubiquitous, convenient, on-demand networ
     is centered around resources, and the way they can be manipulated (added, deleted, etc.) remotely|built upon the <u>Remote Procedure Call paradigm (a language independent function call that spans another system)</u>|
     |Actually ReST is more of a style to use HTTP than a separate protocol|while SOAP/WS is a stack of protocols that covers every aspect of using a remote service, from service discovery, to service description, to the actual request/response|
 4. How to describes the functionality offered by a web service?
+    - WSDL: Web Services Description Language,SOAP用这个。重点是machine-readable
     - WSDL: is an XML-based interface description language that describes the functionality offered by a web service.
     - WSDL provides a machine-readable description of how the service can be called, what parameters it expects, and what results/data structures it returns:
         - Definition – what it does 
@@ -775,25 +769,6 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
         - Self-descriptive messages
             - Requests and responses contain not only data but additional headers describing how the content should be handled.
             - (HTTP GET, HEAD, OPTIONS, PUT, POST, DELETE, CONNECTION, TRACE, PATCH): eneryone knows what these means, no need to google the document (one advantage over SOAP)
-        - HATEOAS: Hyper Media as the Engine of Application State
-            - Resource representations contain links to identified resources
-            - Resources and state can be used by navigating links
-                - links make interconnected resources navigable
-                - without navigation, identifying new resources is service-specific
-            - RESTful applications **<u>navigate</u>** instead of **<u>calling</u>**
-                - Representations contain information about possible traversals
-                - application navigates to the next resource depending on link semantics
-                - navigation can be delegated since all links use identifiers
-            - Making Resources Navigable
-                - RPC-oriented systems need to expose the available functions
-                    - functions are essential for interacting with a service
-                    - introspection or interface descriptions make functions discoverable
-                - ReSTful systems use a Uniform Interface
-                    - no need to learn about functions
-                    - To find resources
-                        - find them by following links from other resources
-                        - learn about them by using URI Templates
-                        - understand them by recognizing representations
 
 4. Resource  
     - is anything that’s important enough to be referenced as a thing in itself.
@@ -961,7 +936,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
         |BigTable DBMS store|data in columns grouped into column families, with rows potentially containing different columns of the same family for **quick retrive**|(e.g. Apache Cassandra, Apache Accumulo) 
         |Document-oriented DBMS store|- data as structured documents, usually expressed as XML or JSON<br/>- Document-oriented databases are one of the main categories of NoSQL databases|(e.g. Apache CouchDB, MongoDB)
         |NoSQL DBMSs|While there is nothing preventing SQL to be used in distributed environments, alternative query languages have been used for distributed databases, hence they are sometimes called NoSQL DBMSs|
-    - Why Document-oriented DBMS for Big data?
+    - Why Document-oriented DBMS for Big data?（课件中只有下面的第一部分，但其余几部分也是对的）
         - While Relational DBMSs are extremely good for ensuring consistency and availability, the normalization that lies at the heart of a relational database model implies fine-grained data, which are less conducive to partition-tolerance than coarse-grained data.
             - Example:
                 -  A typical contact database in a relational data model may include: a person table, a telephone table, an email table and an address table, all relate to each other.
@@ -995,7 +970,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
 5. CAP Theorem and the Classification of Distributed Processing Algorithms
     - <img src="./docs/14.jpg" width="30%" height="50%" />
 
-    1. Two phase commit: Consistency and Availability
+    1. Two phase commit: Consistency and Availability（relational DB和MongoDB用的这个）
         - This is the usual algorithm used in relational DBMS's (and MongoDB)
 
             ||what does it entail?|by|
@@ -1012,7 +987,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
             - When a proposer has received a sufficient number of acceptances (a quorum is reached), and a confirmation message is sent to the accepters with the agreed value
         - Conclusion
             - Paxos clusters can recover from partitions and maintain consistency, but the smaller part of a partition (the part that is not in the quorum) will not send responses, hence the availability is compromised
-    3. Multi-Version Concurrency Control (MVCC): Availability and Partition-tolerance
+    3. Multi-Version Concurrency Control (MVCC): Availability and Partition-tolerance(couchDB用的这个)
         - MVCC is 
             - **a method to ensure availability** (every node in a cluster always accepts requests) and
             - **some sort of recovery from a partition** by reconciling the single databases with revisions (data are not replaced, they are just given a new revision number)
@@ -1026,6 +1001,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
 1. Sharding
     - What is it?  
         - Sharding is the partitioning of a database “horizontally”, i.e. the database rows (or documents) are partitioned into subsets that are stored on different
+        - 本质上就是把整个dataset拆开存到不同的地方
     servers. 
         - shard: Every subset of rows
     - Number of shards
@@ -1044,10 +1020,11 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
         |---|---|
         |Hash sharding|to distribute rows evenly across the cluster|
         |Range sharding|similar rows (say, tweets coming for the same area) that are stored on the same node|
-6. Replication and Sharding
+2. Replication and Sharding
     - What is replication?   
         - Replication is the action of storing the same row (or document) on different nodes to make the database fault-tolerant.
-    - (adv) Replication and sharding can be combined with the objective of maximizing availability while maintaining a minimum level of data safety.
+        - 本质上就是把一模一样的data存到好几个地方
+    - (adv) Replication and sharding can be combined with the objective of maximizing availability while maintaining a minimum level of data safety.（两个一起用可以最大程度上提升availability）
     - A bit of nomenclature:
         - n is the number of replicas (how many times the same data item is repeated across the cluster)
         - q is the number of shards (how many files a database is split)
@@ -1055,16 +1032,17 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
         - <img src="./docs/31.png" width="60%" height="50%" />
             
             - There are 16 shards since the three node clustered database has n=2 replicas and q=8 shards. 
-7. Partitions
+3. Partitions
     - What is it?  
         - A partition is a grouping of logically related rows in the same shard 
+        - 可以理解为更进一步的range sharding
             - e.g.: all the tweets of the same user
     - Advantage:  
         - Partitioning improves performance by restricting queries to a single shard
             - To be effective, partitions have to be relatively small (certainly smaller than a shard)
     - A database has to be declared “partitioned” during its creation
     - Partitions are a new feature of CouchDB 3.x
-8. MapReduce Algorithms
+4. MapReduce Algorithms
     - What is it?  
         - This family of algorithms is particularly suited to parallel computing of the Single-Instruction, Multiple-Data type (SIMD) (see Flynn's taxonomy in a previous lecture)
     - Advantage:  
@@ -1082,13 +1060,13 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
                     for each pc in partialCounts:
                         sum += pc
                     emit (word, sum)
-1. Clustered database architecture
+5. Clustered database architecture
     - Distributed databases are run over “clusters”, that is, sets of connected computers
     - Clusters are needed to: 
         - Distribute the computing load over multiple computers, e.g. to improve availability
         - Storing multiple copies of data, e.g. to achieve redundancy 
     - Consider two document-oriented DBMSs (CouchDB and MongoDB) and their typical cluster architectures
-2. CouchDB Cluster Architecture
+6. CouchDB Cluster Architecture
     - <img src="./docs/11.jpg" width="30%" height="50%" />
     - In this example there are 3 nodes, 4 shards and a replica number of 2
         - replica: copy of data
@@ -1097,14 +1075,6 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
     - Sharding (splitting of data across nodes) is done on every node
         - if a read request to shard A to node 1, then node 1 answer it
         - if a read request to shard A to node 2, then redirect it to node 1 or node 3 answer it
-        - How Shards Look in CouchDB see lecture 7 slide 23 
-            - and section "Replication and Sharding" below
-            ```
-            This is the content of the data/shards directory on a node of a three-node cluster
-            The test database has q=8, n=2, hence 16 shards files
-            The *.couch files are the actual files where data are stored
-            The sub-directories are named after the document _ids ranges
-            ```
     - When a node does not contain a document (say, a document of Shard A is requested to Node 2), the node requests it from another node (say, Node 1) and returns it to the client
     - Scalability: Nodes can be added/removed easily, and their shards are re-balanced automatically upon addition/deletion of nodes
     - Quorums
@@ -1112,7 +1082,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
             - Can only complete successfully if the document is committed to a quorum of replicas, usually a simple majority
         - Read
             - Can only complete successfully only if a quorum of replicas return matching documents
-3. MongoDB Cluster Architecture
+7. MongoDB Cluster Architecture
     - <img src="./docs/12.jpg" width="30%" height="50%" />
     - Sharding (splitting of data) is done at the replica set level
         - i.e.: it involves more than one cluster (a shard is on top of a replica set)
@@ -1124,7 +1094,7 @@ Representational State Transfer (ReST) is intended to evoke an image of how a we
     - Data are balanced across replica sets 
     - Arbiters (MongoDB instances without data) can assist in breaking a tie in elections.
     - Since a quorum has to be reached, it is better to have an odd number of voting members (the arbiter in this diagram is only illustrative)
-4. MongoDB vs CouchDB Clusters
+8. MongoDB vs CouchDB Clusters
 
     |                | MongoDB                                                      | CouchDB                                                      |
     | -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
