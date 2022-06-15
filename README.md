@@ -2116,10 +2116,6 @@ Terminology
             - e.g. data protection act violations and fines incurred
                 - Amazon Web Services, Sydney
         - Trust is easily lost and hard to re-establish
-- What do we mean by security anyway?
-    - Secure from whom?
-        - From sys-admin?
-        - From rogue employee?
 - Secure against what?
     - Security is never black and white but is a grey landscape where the context determines the accuracy of how secure a system is
         - e.g. secure as given by a set of security requirements
@@ -2207,6 +2203,7 @@ Terminology
 - Authentication
     What does it do?
         - prove who you are
+        - 只关心你是谁，不关心你能干嘛
     - What is it?
         - Authentication is <u>**the establishment and propagation of a user’s identity in the system**</u>
         - e.g. so site X can check that user Y is attempting to gain access to it’s resources
@@ -2309,6 +2306,7 @@ Terminology
 - Authorisation
     - What is it?
         - Authorisation is concerned with controlling access to resources based on policy 
+        - 知道我是我之后，怎么给我权限
             - Can this user invoke this service, make use of this data?
             - Complementary to authenticationL Know it is this user, now can we restrict/enforce what they can/cannot do
     - Many different approaches for authorisation
@@ -2326,6 +2324,8 @@ Terminology
                 - roles often hierarchical
                     - Role X ≥ Role Y ≥ Role Z
                     - X can do everything and more than Y who can do everything and more than Z
+            - VO：Virtual Organisation
+                - collection of distributed resources shared by collection of users from one or more organizations typically to work on common research goal
             - **actions** allowed/not allowed for VO members
             - **resources** comprising VO infrastructure (computers, data etc)
             - A policy then consists of sets of these rules
