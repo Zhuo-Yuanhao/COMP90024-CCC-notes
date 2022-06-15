@@ -1797,24 +1797,26 @@ Terminology
 
 
 ## Week 8.3 - Serverless (Function as a Service (FaaS))
-1. Why Functions?
-    - A function in computer science is typically a piece of code that takes in parameters and returns a value
-    - Functions are the founding concept of functional programming - one of the oldest programming paradigms
+1. Why Functions?（注意是function不是faas）
+    - A function in computer science is typically a piece of code that takes in parameters and returns a value（回答what）
+    - Functions are the founding concept of functional programming - one of the oldest programming paradigms（回答what）
     - Why they are used in Faas?
     - Functions in server less comuting are:
         - free of side-effects, 
             - What is it?
                 - A function that does not modify the state of the system
-                    - e.g.: a function that takes an image and returns a thumbnail of that image
+                    - e.g.: a function that takes an image and returns a thumbnail of that image（返回值不影响原本内容）
                 - A function that changes the system somehow is not side-effect free
-                    - e.g.: a function that writes to the file system the thumbnail of an image
+                    - e.g.: a function that writes to the file system the thumbnail of an image（直接在原本内容上修改）
             - How Side-effect free benefits parallel execition?
                 - Side-effect free functions can be run in parallel, and are guaranteed to return the same output given the same input
+                - 同输入，AB可以一起做，并且一定结果一样。如果有side-effect，那么AB一起做会出事儿（要么结果不一样要么直接deadlock之类的）
             - How it benefits FaaS?
                 - Side-effects are almost inevitable (不可避免的) in a relatively complex system. 
                 Therefore consideration must be given on how to make functions with side effects run in parallel, as typically required in FaaS environments.
+                - 简单来说就是side-effect在复杂系统中不可避免，我们需要通过设计，来尽可能并行
         - ephemeral (短暂的;瞬息的),
-            - Synchronous/Asynchronous Functions
+        - Synchronous/Asynchronous Functions
             - Relationship to FaaS
                 - By default functions in FaaS are synchronous, hence they return their result immediately
                 - However, there may be functions that take longer to return a result, hence they incur timeouts and lock connections with clients in the process, hence it is better to transform them into asynchronous functions
@@ -1824,7 +1826,7 @@ Terminology
                 |---|---|
                 |Synchronous functions|return their result immediately
                 |Asynchronous functions|return a code that informs the client that the execution has started, and then trigger an event when the execution completes
-        - stateless, 
+        - stateless/stateful 
             - What is it?
                 - A subset of functions with side-effects is composed of stateful functions 
                     |||e.g.|
@@ -1853,7 +1855,7 @@ Terminology
     |Simpler deployment|the service provider takes care of the infrastructure
     |Reduced computing costs|only the time during which functions are executed is billed
     |Reduced application complexity|due to loosely-coupled architecture
-5. FaaS application
+5. FaaS application（特征）
     - Functions are triggered by events
     - Functions can call each other
     - Functions and events can be combined to build software applications
@@ -1957,6 +1959,7 @@ Terminology
     - HDFS Architecture
         - A HDFS file is a collection of blocks stored in datanodes, with metadata (such as the position of those blocks) that is stored in namenodes
         - <img src="./docs/23.png" width="60%" height="50%" />
+        - 有namenode和datanode，namenode只存每个block具体在哪个datanode上，datanode具体存各个block
     - The HDFS Shell
         - Why we need it?
             - Managing the files on a HDFS cluster cannot be done on the operating system shell
@@ -1987,6 +1990,7 @@ Terminology
         - Storing data on HDFS
     - Spark has a tightly-coupled nature of its main components
     - Spark has a cluster manager of its own, but it can work with other cluster managers, such as YARN or MESOS.
+    - Spark用的是DAG（有向无环图）
 2. Spark Architecture
     - One of the strong points of Spark is the tightly-coupled nature of its main components
         - <img src="./docs/24.jpg" width="60%" height="50%" />
@@ -2053,7 +2057,7 @@ Terminology
         - the way data are stored in Spark during computation, and understanding them is crucial to writing programs in Spark:
             ||What?|
             |---|---|
-            |Resilient|data are stored redundantly, hence a failing node would not affect their integrity
+            |Resilient|data partitions can be reconstructed from previous operations, hence a failing node would not affect their integrity
             |Distributed|data are split into chunks, and these chunks are sent to different nodes
             |Dataset|a dataset is just a collection of objects, hence very generic
     - Properties of RDDs
@@ -2065,8 +2069,8 @@ Terminology
             |lazily-evaluated|the evaluation process happens only <br/> - when data cannot be kept in an RDD, as when the number of objects in an RDD has to be computed, <br/> - or an RDD has to be written to a file (these are called actions), but <br/> - not when an RDD are transformed into another RDD (these are called transformations)|optimizing the process
             - The transformations in the program use lazy evaluation, hence Spark has the possibility of optimizing the process
     - How to Build an RDD?
-        - created out of data stored elsewhere (HDFS, a local text file, a DBMS)
-        - created out of collections too, using the parallelize function
+        - usually created out of data stored elsewhere (HDFS, a local text file, a DBMS)
+        - can be created out of collections too, using the parallelize function
     - RDD variable
         - are just placeholders until the action is encountered. Remember that the Spark application is not just the driver program, but all the RDD processing that takes place on the cluster
     - RDD Transformations
@@ -2106,12 +2110,12 @@ Terminology
     - If systems (Grids/Clouds/outsourced infrastructure!) are not secure 
         - Large communities will not engage
             - medical community, industry, financial community, etc they will only use their own internal resources, e.g.: private clouds!
-    - Expensive to repeat some experiments
-        - Huge machines running large simulations for several years
-    - Legal and ethical issues possible to be violated with all sorts of consequences
-        - e.g. data protection act violations and fines incurred
-            - Amazon Web Services, Sydney
-    - Trust is easily lost and hard to re-establish
+        - Expensive to repeat some experiments
+            - Huge machines running large simulations for several years
+        - Legal and ethical issues possible to be violated with all sorts of consequences
+            - e.g. data protection act violations and fines incurred
+                - Amazon Web Services, Sydney
+        - Trust is easily lost and hard to re-establish
 - What do we mean by security anyway?
     - Secure from whom?
         - From sys-admin?
